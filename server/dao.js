@@ -2,10 +2,14 @@ module.exports=function(){
 
     const db = require(global.common+'/db/mongodb.js');
 
-    console.log(db);
+    function findPasswordByUserName(username){
+        var collection = db.collection('user');
+        return 'password';
+    }
 
     return{
-        db:db
+        db:db,
+        findPasswordByUserName:findPasswordByUserName
     }
 
 }();
