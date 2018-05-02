@@ -4,8 +4,7 @@ module.exports=function(){
 
     function isPasswordValid(param,callback){
         dao.findPasswordByUserName(param.username,function(data){
-            console.log(data);
-            callback(false);
+            callback(data===param.password);
         })       
     }
 

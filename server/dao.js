@@ -5,19 +5,27 @@ module.exports=function(){
 
     function findPasswordByUserName(username,callback){
 
-        var collection = mongodb.db.collection('user');
+        mongodb.getDb('test',function(err,db){
 
-        collection.findOne({'username':username},function(err,data){
+            db.collection('user').findOne({'username':username},function(err,data){
 
-            if(err || data===null){
-                log.server.error(err);
-                callback(null);
-                return;
-            }
+                if(err){
+                    log.server.error(err);
+                    callback(null);
+                    return;
+                }
 
-            callback(data.value);
-
+                if(data===null){
+                    callback(null);
+                    return;
+                }
+    
+                callback(data.username);
+    
+            });
         });
+
+
 
     }
 

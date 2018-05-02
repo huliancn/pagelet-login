@@ -15,12 +15,12 @@ module.exports=function(app){
         service.isPasswordValid(req.body,function(result){
 
             if(!result){
-                res.json('password wrong!');              
-            }else{
-                res.json('test');
+                res.json(result);          
+                return;    
             }
+            
+            res.json('success');
 
-            return;
         });
 
         //创建会话
