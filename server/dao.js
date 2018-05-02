@@ -4,7 +4,8 @@ module.exports=function(){
 
     function findPasswordByUserName(username){
         var collection = mongodb.db.collection('user');
-        return 'password';
+        var password = collection.findOne({'username':username});
+        return password;
     }
 
     return{
