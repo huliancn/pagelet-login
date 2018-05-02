@@ -12,14 +12,17 @@ module.exports=function(app){
         //console.log(req.body.username);
 
         //验证密码
-        service.isPasswordValid(req.body,function(result){
+        service.isPasswordValid(req.body,function(err,result){
+
+            if(err){
+                return res.json(err);
+            }
 
             if(!result){
-                res.json(result);          
-                return;    
+                return res.json(result);            
             }
             
-            res.json('success');
+            return res.json('success');
 
         });
 

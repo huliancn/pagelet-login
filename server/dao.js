@@ -7,12 +7,15 @@ module.exports=function(){
 
         mongodb.getDb('test',function(err,db){
 
+            if(err){
+                return callback(err);
+            }
+
             db.collection('user').findOne({'username':username},function(err,data){
 
                 if(err){
                     log.server.error(err);
-                    callback(null);
-                    return;
+                    return callback(err);                 
                 }
 
                 if(data===null){
@@ -20,7 +23,7 @@ module.exports=function(){
                     return;
                 }
     
-                callback(data.username);
+                return callback(null,data.username);
     
             });
         });
