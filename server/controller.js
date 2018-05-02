@@ -14,8 +14,6 @@ module.exports=function(app){
         //验证密码
         service.isPasswordValid(req.body,function(result){
 
-            console.log('ddddddddddddd')
-
             if(!result){
                 res.json('password wrong!');              
             }else{

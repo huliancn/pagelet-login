@@ -4,13 +4,14 @@ module.exports=function(){
     const mongodb = require(global.common+'/db/mongodb.js');
 
     function findPasswordByUserName(username,callback){
+
         var collection = mongodb.db.collection('user');
-        collection.find({'username':username}).toArray(function(err,data){
 
-            log.app.info('----call back')
+        collection.findOne({'username':username},function(err,data){
 
-            if(err){
-                console.log(err);
+            if(err || data===null){
+                log.server.error(err);
+                callback(null);
                 return;
             }
 
@@ -18,7 +19,6 @@ module.exports=function(){
 
         });
 
-        log.app.info('----')
     }
 
     return{
