@@ -6,7 +6,7 @@ module.exports=function(app){
 
     //登陆接口
     //返回：登陆信息
-    app.post(config.path.login,function(req,res){
+    app.post(config.path.login,function(req,res,next){
 
         //验证参数
         //console.log(req.body.username);
@@ -15,7 +15,7 @@ module.exports=function(app){
         service.isPasswordValid(req.body,function(err,result){
 
             if(err){
-                return res.json(err);
+                return next(err);
             }
 
             if(!result){
