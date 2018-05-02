@@ -1,11 +1,24 @@
 module.exports=function(){
 
+    const log = require(global.common+'/log/log4js.js')
     const mongodb = require(global.common+'/db/mongodb.js');
 
-    function findPasswordByUserName(username){
+    function findPasswordByUserName(username,callback){
         var collection = mongodb.db.collection('user');
-        var password = collection.findOne({'username':username});
-        return password;
+        collection.find({'username':username}).toArray(function(err,data){
+
+            log.app.info('----call back')
+
+            if(err){
+                console.log(err);
+                return;
+            }
+
+            callback(data.value);
+
+        });
+
+        log.app.info('----')
     }
 
     return{

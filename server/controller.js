@@ -12,15 +12,26 @@ module.exports=function(app){
         //console.log(req.body.username);
 
         //验证密码
-        service.isPasswordValid(req.body);
+        service.isPasswordValid(req.body,function(result){
+
+            console.log('ddddddddddddd')
+
+            if(!result){
+                res.json('password wrong!');              
+            }else{
+                res.json('test');
+            }
+
+            return;
+        });
 
         //创建会话
 
         //登陆成功：返回用户信息
 
         //登陆失败：返回错误信息
-
-        res.json('test');
+       // console.log('1111')
+       // res.json('end');
     })
 
     //名称：验证码接口

@@ -2,9 +2,11 @@ module.exports=function(){
 
     const dao = require('./dao.js');
 
-    function isPasswordValid(param){
-        var password = dao.findPasswordByUserName(param.username)
-        console.log(password);
+    function isPasswordValid(param,callback){
+        dao.findPasswordByUserName(param.username,function(data){
+            console.log(data);
+            callback(false);
+        })       
     }
 
     return{
