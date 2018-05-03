@@ -1,10 +1,11 @@
 module.exports=function(app){
     
-    //获取配置，主要用于前后端共享数据
+    //容器配置
     const systemConfig = require('config');
+    //获取配置，主要用于前后端共享数据
     const config = require('../config');
     const service = require('./service');
-    const I18N = require('./i18n')(systemConfig.get('language'));
+    const I18N = require('../i18n')(systemConfig.get('language'));
     const validator = require('validator');
 
     //登陆接口

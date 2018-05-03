@@ -1,4 +1,11 @@
-module.exports=function(language){
+
+if( typeof(define) == 'undefined'    ){
+    var define = function(f){
+        module.exports=f;
+    }
+}
+
+define(function(language){
 
     switch (language) {
         case 'cn':
@@ -17,4 +24,4 @@ module.exports=function(language){
     }
     
 
-};
+});
