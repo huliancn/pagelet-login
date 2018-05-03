@@ -1,5 +1,7 @@
 //定义AMD模块
-define(['jquery', '../../config.js'], function ($, config) {
+define(['jquery', '../../config.js','../../i18n.js'], function ($,config,i18n) {
+
+    const I18N = i18n.cn;
 
     //刷新验证码
     $('#pagelet-login-captcha-refresh').click(function () {
@@ -13,23 +15,26 @@ define(['jquery', '../../config.js'], function ($, config) {
     $('#pagelet-login-submit').click(function () {
 
         $('.info').text('');
-
         var username = $('#pagelet-login-username').val();
-        if (username === null || username === '') {
-            $('#pagelet-login .info').text('用户名不能为空！')
-            return;
-        }
-
         var password = $('#pagelet-login-password').val();
-        if (password === null || password === '') {
-            $('#pagelet-login .info').text('密码不能为空！')
-            return;
-        }
-
         var captcha = $('#pagelet-login-captcha').val();
-        if (captcha === null || captcha === '') {
-            $('#pagelet-login .info').text('验证码不能为空！')
-            return;
+
+        if(config.validation==='both'){
+            
+            if (username === null || username === '') {
+                $('#pagelet-login .info').text(I18N.USER_NAME_CANNOT_EMPTY)
+                return;
+            }
+
+            if (password === null || password === '') {
+                $('#pagelet-login .info').text('密码不能为空！')
+                return;
+            }
+
+            if (captcha === null || captcha === '') {
+                $('#pagelet-login .info').text('验证码不能为空！')
+                return;
+            }
         }
 
         $.post({

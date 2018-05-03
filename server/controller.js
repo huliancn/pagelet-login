@@ -2,10 +2,11 @@ module.exports=function(app){
     
     //容器配置
     const systemConfig = require('config');
+    const I18N = require('../i18n').cn;
+
     //获取配置，主要用于前后端共享数据
     const config = require('../config');
     const service = require('./service');
-    const I18N = require('../i18n')(systemConfig.get('language'));
     const validator = require('validator');
 
     //登陆接口
@@ -19,11 +20,11 @@ module.exports=function(app){
         }
 
         if(validator.isEmpty(validator.trim(req.body.password))){
-            return res.json('密码不能为空!')
+            return res.json(I18N.PASSWORD_CANNOT_EMPTY)
         }
 
         if(validator.isEmpty(validator.trim(req.body.captcha))){
-            return res.json('验证码不能为空!')
+            return res.json(I18N.CAPTCHA_CANNOT_EMPTY)
         }
 
         //验证密码

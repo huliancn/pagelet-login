@@ -11,6 +11,7 @@ define(function (){
 
     var config={
         name:component_name,
+        validation:"both",
         path:{
             login:"/"+component_name+"/login",
             captcha:"/"+component_name+"/captcha"
