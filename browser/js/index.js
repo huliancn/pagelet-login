@@ -1,5 +1,5 @@
 //定义AMD模块
-define(['jquery', '../../config.js','../../i18n.js'], function ($,config,i18n) {
+define(['jquery','validator', '../../config.js','../../i18n.js'], function ($,validator,config,i18n) {
 
     const I18N = i18n.cn;
 
@@ -14,25 +14,26 @@ define(['jquery', '../../config.js','../../i18n.js'], function ($,config,i18n) {
     //Form提交
     $('#pagelet-login-submit').click(function () {
 
-        $('.info').text('');
+        $('#pagelet-login .info').text('');
         var username = $('#pagelet-login-username').val();
         var password = $('#pagelet-login-password').val();
         var captcha = $('#pagelet-login-captcha').val();
 
+        //根据配置控制是否需要前端参数验证，方便于测试后端验证是否缜密
         if(config.validation==='both'){
             
-            if (username === null || username === '') {
+            if (validator.isEmpty(validator.trim(username))){
                 $('#pagelet-login .info').text(I18N.USER_NAME_CANNOT_EMPTY)
                 return;
             }
 
-            if (password === null || password === '') {
-                $('#pagelet-login .info').text('密码不能为空！')
+            if (validator.isEmpty(validator.trim(password))) {
+                $('#pagelet-login .info').text(I18N.PASSWORD_CANNOT_EMPTY)
                 return;
             }
 
-            if (captcha === null || captcha === '') {
-                $('#pagelet-login .info').text('验证码不能为空！')
+            if (validator.isEmpty(validator.trim(captcha))) {
+                $('#pagelet-login .info').text(I18N.CAPTCHA_CANNOT_EMPTY)
                 return;
             }
         }
