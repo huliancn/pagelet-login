@@ -13,22 +13,25 @@ module.exports=function(app){
     //返回：登陆信息
     app.post(config.path.login,function(req,res,next){
 
+        var username = validator.trim(req.body.username);
+        var password = validator.trim(req.body.password);
+        var captcha = validator.trim(req.body.captcha);
+
         //验证参数
-        //console.log(req.body.username);
-        if(validator.isEmpty(validator.trim(req.body.username))){
+        if(validator.isEmpty(username)){
             return res.json(I18N.USER_NAME_CANNOT_EMPTY)
         }
 
-        if(validator.isEmpty(validator.trim(req.body.password))){
+        if(validator.isEmpty(password)){
             return res.json(I18N.PASSWORD_CANNOT_EMPTY)
         }
 
-        if(validator.isEmpty(validator.trim(req.body.captcha))){
+        if(validator.isEmpty(captcha)){
             return res.json(I18N.CAPTCHA_CANNOT_EMPTY)
         }
 
         //验证密码
-        service.isPasswordValid(req.body,function(err,result){
+        service.isPasswordValid(username,password,function(err,result){
 
             if(err){
                 return next(err);

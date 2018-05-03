@@ -15,24 +15,24 @@ define(['jquery','validator', '../../config.js','../../i18n.js'], function ($,va
     $('#pagelet-login-submit').click(function () {
 
         $('#pagelet-login .info').text('');
-        var username = $('#pagelet-login-username').val();
-        var password = $('#pagelet-login-password').val();
-        var captcha = $('#pagelet-login-captcha').val();
+        var username = validator.trim($('#pagelet-login-username').val());
+        var password = validator.trim($('#pagelet-login-password').val());
+        var captcha = validator.trim($('#pagelet-login-captcha').val());
 
         //根据配置控制是否需要前端参数验证，方便于测试后端验证是否缜密
         if(config.validation==='both'){
             
-            if (validator.isEmpty(validator.trim(username))){
+            if (validator.isEmpty(username)){
                 $('#pagelet-login .info').text(I18N.USER_NAME_CANNOT_EMPTY)
                 return;
             }
 
-            if (validator.isEmpty(validator.trim(password))) {
+            if (validator.isEmpty(password)) {
                 $('#pagelet-login .info').text(I18N.PASSWORD_CANNOT_EMPTY)
                 return;
             }
 
-            if (validator.isEmpty(validator.trim(captcha))) {
+            if (validator.isEmpty(captcha)) {
                 $('#pagelet-login .info').text(I18N.CAPTCHA_CANNOT_EMPTY)
                 return;
             }
