@@ -1,8 +1,11 @@
 module.exports=function(app){
     
     //获取配置，主要用于前后端共享数据
-    var config = require('../config.js');
-    var service = require('./service');
+    const systemConfig = require('config');
+    const config = require('../config');
+    const service = require('./service');
+    const I18N = require('./i18n')(systemConfig.get('language'));
+    const validator = require('validator');
 
     //登陆接口
     //返回：登陆信息
@@ -10,6 +13,17 @@ module.exports=function(app){
 
         //验证参数
         //console.log(req.body.username);
+        if(validator.isEmpty(validator.trim(req.body.username))){
+            return res.json(I18N.USER_NAME_CANNOT_EMPTY)
+        }
+
+        if(validator.isEmpty(validator.trim(req.body.password))){
+            return res.json('密码不能为空!')
+        }
+
+        if(validator.isEmpty(validator.trim(req.body.captcha))){
+            return res.json('验证码不能为空!')
+        }
 
         //验证密码
         service.isPasswordValid(req.body,function(err,result){
